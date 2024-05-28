@@ -1,5 +1,9 @@
 package com.remedios.murilo.curso.remedio;
 
+import com.remedios.murilo.curso.remedio.dtos.DadosAtualizarRemedio;
+import com.remedios.murilo.curso.remedio.dtos.DadosCadastroRemedio;
+import com.remedios.murilo.curso.remedio.enums.Laboratorio;
+import com.remedios.murilo.curso.remedio.enums.Via;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.remedios.murilo.curso.remedio;
+package com.remedios.murilo.curso.remedio.enums;
 
 public enum Laboratorio {
     MEDLEY,

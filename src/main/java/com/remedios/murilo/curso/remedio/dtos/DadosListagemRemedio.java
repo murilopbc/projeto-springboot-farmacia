@@ -1,4 +1,8 @@
-package com.remedios.murilo.curso.remedio;
+package com.remedios.murilo.curso.remedio.dtos;
+
+import com.remedios.murilo.curso.remedio.enums.Laboratorio;
+import com.remedios.murilo.curso.remedio.Remedio;
+import com.remedios.murilo.curso.remedio.enums.Via;
 
 import java.time.LocalDate;
 
