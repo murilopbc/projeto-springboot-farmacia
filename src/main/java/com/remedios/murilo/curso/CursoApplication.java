@@ -11,3 +11,11 @@ public class CursoApplication {
 	}
 
 }
+
+// Spring Security
+// Autenticação - para acessar a aplicação é necessário estar autenticado
+// Autorização - Controle de acesso
+// Proteção contra Ataques
+
+// Autenticação com token - Input de Usuário e Senha, Validação no banco de dados se o usuário está cadastrado,
+// retorna um token de acesso as funcionalidades da plataforma
