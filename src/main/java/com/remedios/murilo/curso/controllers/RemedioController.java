@@ -20,6 +20,7 @@ import java.util.List;
 // Ex: A senha não deve ser mostrada por questão de segurança
 // JPA - Responsável por persistir os dados dentro do banco de dados
 // Flyway: Ferramenta que serve para controle de versionamento de tabelas dentro do banco de dados
+// Response Entity : Classe que faz com que retorne o código correto das requisições
 
 
 @RestController
@@ -47,6 +48,14 @@ public class RemedioController {
          var lista = repository.findAllByAtivoTrue().stream().map(DadosListagemRemedio::new).toList();
 
          return ResponseEntity.ok(lista);
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoRemedio> detalhar(@PathVariable Long id){
+        var remedio = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoRemedio(remedio));
 
     }
 
