@@ -1,5 +1,6 @@
-package com.remedios.murilo.curso.usuarios;
+package com.remedios.murilo.curso.repositories;
 
+import com.remedios.murilo.curso.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 

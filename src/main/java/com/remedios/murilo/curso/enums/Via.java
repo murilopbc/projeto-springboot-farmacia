@@ -1,4 +1,4 @@
-package com.remedios.murilo.curso.remedio.enums;
+package com.remedios.murilo.curso.enums;
 
 public enum Via {
     ORAL,

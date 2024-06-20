@@ -1,6 +1,6 @@
-package com.remedios.murilo.curso.remedio.repositories;
+package com.remedios.murilo.curso.repositories;
 
-import com.remedios.murilo.curso.remedio.Remedio;
+import com.remedios.murilo.curso.entities.Remedio;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

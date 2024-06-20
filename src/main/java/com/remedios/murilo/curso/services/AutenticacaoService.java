@@ -1,5 +1,6 @@
-package com.remedios.murilo.curso.usuarios;
+package com.remedios.murilo.curso.services;
 
+import com.remedios.murilo.curso.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

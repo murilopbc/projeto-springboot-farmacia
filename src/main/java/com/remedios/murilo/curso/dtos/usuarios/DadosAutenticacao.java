@@ -1,4 +1,4 @@
-package com.remedios.murilo.curso.usuarios;
+package com.remedios.murilo.curso.dtos.usuarios;
 
 public record DadosAutenticacao(String login, String senha) {
 }
