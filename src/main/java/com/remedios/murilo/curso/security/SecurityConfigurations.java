@@ -22,6 +22,7 @@ public class SecurityConfigurations {
                 .and().build();
 
     }
+
     @Bean
     public AuthenticationManager autenticationManager(AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();
