@@ -1,10 +1,11 @@
 package com.remedios.murilo.curso.controllers;
 
-import com.remedios.murilo.curso.entities.*;
+
 import com.remedios.murilo.curso.dtos.remedios.DadosAtualizarRemedio;
 import com.remedios.murilo.curso.dtos.remedios.DadosCadastroRemedio;
 import com.remedios.murilo.curso.dtos.remedios.DadosDetalhamentoRemedio;
 import com.remedios.murilo.curso.dtos.remedios.DadosListagemRemedio;
+import com.remedios.murilo.curso.entities.Remedio;
 import com.remedios.murilo.curso.repositories.RemedioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -25,81 +26,75 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/remedios")
-@SecurityRequirement(name = "bearer-key")
 public class RemedioController {
 
+
     @Autowired
-    private RemedioService service;
-
-    // Valid mostra que os dados precisam estar validados
-
-    // Transactional - Faz com que se caso algum erro acontecer nesta requisição ela reverte toda a alteração feita
-    // evita uma perda de dados indesejada
+    private RemedioRepository repository;
 
     @PostMapping
-    @Transactional
-    @Operation(summary = "Cadastre um Remédio!",
-            description ="Cadastre um Remédio!",
-            tags = {"Remedios"})
-    public ResponseEntity<RemedioDTO> create(@RequestBody @Valid InRemedioDTO dados, UriComponentsBuilder uriBuilder){
+    @Transactional // faz com que a transação seja revertida(rool back) se houver algum problema
+    public ResponseEntity<DadosDetalhamentoRemedio> cadastrar(@RequestBody @Valid DadosCadastroRemedio dados, UriComponentsBuilder uriBuilder){ //  void não retorna nada
+        var remedio = new Remedio(dados);
+        repository.save(remedio);
 
-        RemedioDTO remedio =  service.create(dados);
+        var uri = uriBuilder.path("/remedios/{id}").buildAndExpand(remedio.getId()).toUri();
 
-        var uri = uriBuilder.path("/remedios/{id}").buildAndExpand(remedio.id()).toUri();
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoRemedio(remedio));
 
-        return ResponseEntity.created(uri).body(remedio);
     }
 
     @GetMapping
-    @Operation(summary = "Buscar todos os Remédios!",
-            description ="Buscar todos os Remédios!",
-            tags = {"Remedios"})
-    public ResponseEntity<List<OutRemedioDTO>> getAll(){
-        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<DadosListagemRemedio>> listar(){
+        var lista = repository.findAllByAtivoTrue().stream().map(DadosListagemRemedio::new).toList();
+
+        return ResponseEntity.ok(lista);
+
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Detalhar Remédio por ID!",
-            description ="Detalhar Remédio por ID!",
-            tags = {"Remedios"})
-    public ResponseEntity<RemedioDTO>detalhar(@PathVariable Long id){
-        return new ResponseEntity<>(service.detalhar(id), HttpStatus.OK);
+    public ResponseEntity<DadosDetalhamentoRemedio> detalhar(@PathVariable Long id){
+        var remedio = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoRemedio(remedio));
+
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping
     @Transactional
-    @Operation(summary = "Atualizar Remédio!",
-            description ="Atualizar Remédio!",
-            tags = {"Remedios"})
-    public ResponseEntity<OutRemedioDTO> atualizar(@PathVariable Long id, @RequestBody @Valid UptRemedioDTO dados){
-        return new ResponseEntity<>(service.atualizar(id, dados), HttpStatus.OK);
+    public ResponseEntity<DadosDetalhamentoRemedio> atualizar(@RequestBody @Valid DadosAtualizarRemedio dados){
+        var remedio = repository.getReferenceById(dados.id());
+        remedio.atualizarInformacoes(dados);
+
+        return ResponseEntity.ok(new DadosDetalhamentoRemedio(remedio));
+
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    @Operation(summary = "Deletar Remédio!",
-            description ="Deletar Remédio!",
-            tags = {"Remedios"})
-    public ResponseEntity<OutRemedioDTO> delete(@PathVariable Long id){
-        return new ResponseEntity<>(service.deletar(id), HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> excluir(@PathVariable Long id){
+        repository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+
     }
 
-    @DeleteMapping("/inativar/{id}")
+    @DeleteMapping("inativar/{id}")
     @Transactional
-    @Operation(summary = "Inativar Remédio!",
-            description ="Inativar Remédio!",
-            tags = {"Remedios"})
-    public ResponseEntity<OutRemedioDTO> inativar(@PathVariable Long id){
-        return new ResponseEntity<>(service.inativar(id), HttpStatus.OK);
+    public ResponseEntity<Void> inativar(@PathVariable Long id){
+        var remedio = repository.getReferenceById(id);
+        remedio.inativar();
+
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/ativar/{id}")
+    @PutMapping("ativar/{id}")
     @Transactional
-    @Operation(summary = "Ativar Remédio!",
-            description ="Ativar Remédio!",
-            tags = {"Remedios"})
-    public ResponseEntity<OutRemedioDTO> ativar(@PathVariable Long id){
-        return new ResponseEntity<>(service.ativar(id), HttpStatus.OK);
+    public ResponseEntity<Void> ativar(@PathVariable Long id){
+        var remedio = repository.getReferenceById(id);
+        remedio.ativar();
+
+        return ResponseEntity.noContent().build();
     }
+
 }
-
