@@ -1,6 +1,5 @@
 package com.remedios.murilo.curso.security;
 
-import com.remedios.murilo.curso.infra.SecurityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -4,7 +4,7 @@ package com.remedios.murilo.curso.controllers;
 
 import com.remedios.murilo.curso.dtos.usuarios.DadosAutenticacao;
 import com.remedios.murilo.curso.entities.Usuario;
-import com.remedios.murilo.curso.infra.DadosTokenJWT;
+import com.remedios.murilo.curso.dtos.usuarios.DadosTokenJWT;
 import com.remedios.murilo.curso.services.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

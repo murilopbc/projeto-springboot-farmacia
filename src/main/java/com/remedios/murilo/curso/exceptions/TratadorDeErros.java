@@ -1,4 +1,4 @@
-package com.remedios.murilo.curso.infra;
+package com.remedios.murilo.curso.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;

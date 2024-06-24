@@ -1,4 +1,4 @@
-package com.remedios.murilo.curso.infra;
+package com.remedios.murilo.curso.security;
 
 
 import com.remedios.murilo.curso.repositories.UsuarioRepository;
